@@ -11,10 +11,11 @@ const GridColumn = ({
 }) => {
   const robotCell = (allRobotInCell) =>
     allRobotInCell.map((robot, index) => (
-      <span key={`robot-${robot.name}-${index}`}>
+      <span key={`robot-${robot.name}-${index}`} className={`robot ${robot.d}`}>
         <GiVintageRobot size="1.8em" name={robot.name} color={robot.color} />
       </span>
     ));
+
   const renderColumn = () => {
     let columns = [];
     for (let index = 0; index < dimension.x; index++) {

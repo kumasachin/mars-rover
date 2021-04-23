@@ -17,7 +17,7 @@ const GridMap = ({ name = "unKnown surface" }) => {
         name: "Chintu",
         x: 1,
         y: 1,
-        d: "N",
+        d: "E",
         color: "red",
         currentPosition: "1 1 N",
         instructions: "FRFR",
