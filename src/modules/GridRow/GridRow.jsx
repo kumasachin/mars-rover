@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { GridColumn } from "../../modules";
 import "./GridRow.css";
 
-const GridRow = ({ dimension = {}, lostCell = {}, robotPosition = {} }) => {
+const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
+  const [mapRenderFlag, setMapRenderFlag] = useState(false);
+
+
   const findRoboInRow = (rowNumber, typeOfCoordinates) => {
-    const allRobots = robotPosition.filter((robot) => {
+    const allRobots = robots.filter((robot) => {
       return rowNumber === robot[typeOfCoordinates];
     });
 
@@ -13,7 +16,7 @@ const GridRow = ({ dimension = {}, lostCell = {}, robotPosition = {} }) => {
 
   const renderRows = () => {
     let rows = [];
-    const { x, y } = robotPosition;
+    const { x, y } = robots;
 
     for (let index = dimension.y - 1; index >= 0; index--) {
       const isLostRowClass =

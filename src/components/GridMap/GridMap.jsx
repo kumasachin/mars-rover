@@ -17,20 +17,11 @@ const GridMap = ({ name = "unKnown surface" }) => {
         name: "Chintu",
         x: 1,
         y: 1,
-        d: "E",
+        d: "N",
         color: "red",
         currentPosition: "1 1 N",
-        instructions: "FRFR",
-      },
-      {
-        name: "Montu",
-        x: 1,
-        y: 1,
-        d: "N",
-        color: "green",
-        currentPosition: "1 2 E",
-        instructions: "FLFR",
-      },
+        instructions: "LR",
+      }
     ],
   };
 
@@ -40,7 +31,7 @@ const GridMap = ({ name = "unKnown surface" }) => {
       <div className="row">
         <GridSurface
           dimension={marsRover.map}
-          robotPosition={marsRover.robots}
+          robots={marsRover.robots}
           lostCell={marsRover.lostCell}
         />
       </div>
