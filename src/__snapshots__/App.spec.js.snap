@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="App"
+  >
+    <header>
+      <h1
+        data-testid="application-heading"
+      >
+        Mars Rover project
+      </h1>
+    </header>
+    <div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="col-md-4 control-label"
+          for="textinput"
+        >
+          Mars Map 
+        </label>
+        <div
+          class="col-md-4"
+        >
+          <input
+            class="form-control input-md"
+            id="textinput"
+            name="textinput"
+            placeholder="Enter Map Dimension Coordinates"
+            size="30"
+            type="text"
+          />
+          <span
+            class="help-block"
+          >
+            Sample: 11 11
+          </span>
+        </div>
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="col-md-4 control-label"
+          for="Submit "
+        />
+        <div
+          class="col-md-4"
+        >
+          <button
+            class="btn btn-primary"
+            id="Submit "
+            name="Submit "
+          >
+            Submit Commands
+          </button>
+        </div>
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="col-md-4 control-label"
+          for="roboPositionCoordinates"
+        >
+          Ropo Position
+        </label>
+        <div
+          class="col-md-4"
+        >
+          <input
+            class="form-control input-md"
+            id="roboPositionCoordinates"
+            name="roboPositionCoordinates"
+            placeholder="Press Enter after input"
+            type="text"
+          />
+          <span
+            class="help-block"
+          >
+            Sample: 11 11 E
+          </span>
+        </div>
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="col-md-4 control-label"
+          for="robotPositionChnage"
+        >
+          Instruction for Robot
+        </label>
+        <div
+          class="col-md-4"
+        >
+          <input
+            class="form-control input-md"
+            id="robotPositionChnage"
+            name="robotPositionChnage"
+            placeholder="Press Enter Robot Command"
+            type="text"
+          />
+          <span
+            class="help-block"
+          >
+            Sample: F(Front), L(Left) and R(Right)
+          </span>
+        </div>
+      </div>
+      <div
+        class="form-group"
+      >
+        <label
+          class="col-md-4 control-label"
+          for="Submit "
+        />
+        <div
+          class="col-md-4"
+        >
+          <button
+            class="btn btn-primary"
+            id="Submit "
+            name="Submit "
+          >
+            Submit Commands
+          </button>
+        </div>
+      </div>
+      grid 
+      <br />
+      <input
+        autofocus="true"
+        class="terminal-div"
+        label="test"
+        maxlength="5"
+        name="grid"
+        placeholder="Ex: X Y"
+        type="text"
+        value=""
+      />
+      <br />
+      position 
+      <br />
+      <input
+        autofocus="false"
+        class="terminal-div"
+        maxlength="7"
+        name="robo-coordinates"
+        placeholder="Ex: X Y D"
+        type="text"
+        value=""
+      />
+      <br />
+      direction 
+      <br />
+      <input
+        autofocus="false"
+        class="terminal-div"
+        maxlength="100"
+        name="direction"
+        placeholder="Ex: X Y D"
+        type="text"
+        value=""
+      />
+      <div>
+        <div />
+        <div />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

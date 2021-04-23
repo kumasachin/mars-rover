@@ -1,0 +1,19 @@
+.grid-column {
+    min-width: 30px;
+    min-height: 40px;
+   
+}
+.grid-column span {
+    min-height: 30px;
+    display: block;
+}
+.grid-row {
+    min-height: 40px;
+}
+.lostRow {
+    background-color: red;;
+}
+
+.lostRow .lostCell {
+    background-color: bisque;
+}
