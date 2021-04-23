@@ -1,5 +1,5 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import GridRow from '.';
+import GridRow from './GridRow';
 
 describe("Robots", () => {
   afterEach(cleanup);

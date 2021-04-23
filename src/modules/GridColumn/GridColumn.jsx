@@ -1,25 +1,42 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
+import { GiVintageRobot } from "react-icons/gi";
+
 import "./GridColumn.css";
 
-const GridColumn = ({dimension, lostCell={}, rowIndex, robotPosition={}}) => {
-    const renderColumn= () => {
-        let columns = [];
-        for (let index=0; index<dimension.x; index++) {
-            const lostCellClass = lostCell.x && lostCell.x.includes(index) ? "lostCell" : "";
-            const isRoboInCell = rowIndex === robotPosition.y && index === robotPosition.x;
-            
-            columns.push(<td className={`grid-column column-${index} ${lostCellClass} `}>
-                {isRoboInCell ? <span>&#11014;</span> : <span />}
-            </td>);
-        }
-        return columns;
-    }
+const GridColumn = ({
+  dimension = {},
+  lostCell = {},
+  rowIndex,
+  robotDetail = [],
+}) => {
+  const robotCell = (allRobotInCell) =>
+    allRobotInCell.map((robot, index) => (
+      <span key={`robot-${robot.name}-${index}`}>
+        <GiVintageRobot size="1.8em" name={robot.name} color={robot.color} />
+      </span>
+    ));
+  const renderColumn = () => {
+    let columns = [];
+    for (let index = 0; index < dimension.x; index++) {
+      const lostCellClass =
+        lostCell.x && lostCell.x.includes(index) ? "lostCell" : "";
+      const allRobotInCell = robotDetail.filter((robot) => {
+        return robot.y === rowIndex && robot.x === index;
+      });
 
-    return (
-            <>
-                {renderColumn()}
-            </>
-    );
+      columns.push(
+        <td
+          key={`cell-${rowIndex}-${index}`}
+          className={`grid-column column-${index} ${lostCellClass} `}
+        >
+          {allRobotInCell.length > 0 ? robotCell(allRobotInCell) : <span />}
+        </td>
+      );
+    }
+    return columns;
+  };
+
+  return <>{renderColumn()}</>;
 };
 
 export default GridColumn;

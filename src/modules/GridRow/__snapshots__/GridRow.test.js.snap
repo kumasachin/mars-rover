@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Robots should take a snapshot 1`] = `<DocumentFragment />`;
+
+exports[`Robots should take a snapshot 2`] = `<DocumentFragment />`;
