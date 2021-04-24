@@ -24,26 +24,42 @@ export const GridSurface = ({
   };
 
   const moveRobot = async () => {
-    const robotToMove = robots[robots.length - 1];
     const {
       instructionCount,
       numberOfRobotsRemainToPosition
     } = iteratorForRobot;
-
+    const robotToMove = robots[numberOfRobotsRemainToPosition];
+    
     if (robotPosition.length - 1 >= numberOfRobotsRemainToPosition && robotToMove.instructions.length > instructionCount) {
+      console.log("numberOfRobotsRemainToPosition", numberOfRobotsRemainToPosition)
+    console.log("move", robotToMove.name, "with instruction", robotToMove.instructions);
+    console.log("robotNumber sequence", robotPosition.length - 1 >= numberOfRobotsRemainToPosition)
+    console.log("robot instruction", robotToMove.instructions, robotToMove.instructions.length > instructionCount)
+
+
+
       const robotWithNewPosition = robotNextStep(robotPosition[numberOfRobotsRemainToPosition], instructionCount, dimension);
       console.log("robotWithNewPosition", robotWithNewPosition);
       const robotSetWithNewPosition = [...robotPosition];
-      robotSetWithNewPosition.pop();
-      robotSetWithNewPosition.push(robotWithNewPosition);
-      await delay(2000);
-      setInstructionStatus({
-        instructionCount: instructionCount + 1,
-        numberOfRobotsRemainToPosition: robotToMove.instructions.length -1 <= instructionCount ? numberOfRobotsRemainToPosition + 1 : numberOfRobotsRemainToPosition
-      });
-      setRobotNewPosition(robotSetWithNewPosition);
 
-      console.log("after robot", robotSetWithNewPosition)
+      robotSetWithNewPosition[numberOfRobotsRemainToPosition] = robotWithNewPosition;
+      //robotSetWithNewPosition.push(robotWithNewPosition);
+      await delay(1000);
+      console.log("£££££££££££££",robotToMove.name, "command to excute", robotToMove.instructions[instructionCount]);
+      if (robotToMove.instructions.length -1 <= instructionCount) {
+        setInstructionStatus({
+          instructionCount: 0,
+          numberOfRobotsRemainToPosition: numberOfRobotsRemainToPosition + 1
+        });
+       } else {
+        setInstructionStatus({
+          instructionCount: instructionCount + 1,
+          numberOfRobotsRemainToPosition: numberOfRobotsRemainToPosition
+        });
+       }
+      setRobotNewPosition(robotSetWithNewPosition);
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$robotSetWithNewPosition", robotSetWithNewPosition);
+     // console.log("after robot", robotSetWithNewPosition)
     }
   };
 

@@ -13,6 +13,7 @@ const GridColumn = ({
     allRobotInCell.map((robot, index) => (
       <span key={`robot-${robot.name}-${index}`} className={`robot ${robot.d}`}>
         <GiVintageRobot size="1.8em" name={robot.name} color={robot.color} />
+        {robot.name}
       </span>
     ));
 
