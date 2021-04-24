@@ -95,12 +95,12 @@ export const robotNextStep = (robotDetails, instructionCount, dimension, lostCel
   };
   const { instructions } = robotDetails;
   const nextInstruction = instructions[instructionCount];
-
   if (nextInstruction === "L") {
     robotWithNewPosition.d = LEFT_TURNS_MAP[robotWithNewPosition.d];
   } else if (nextInstruction === "R") {
     robotWithNewPosition.d = RIGHT_TURNS_MAP[robotWithNewPosition.d];
   } else if (nextInstruction === "F") {
+    
     const newPositionWithDirection = frontMove(robotWithNewPosition, dimension, lostCell);
     robotWithNewPosition = {
       ...robotWithNewPosition,
@@ -114,41 +114,3 @@ export const robotNextStep = (robotDetails, instructionCount, dimension, lostCel
 const checkCurrentIsLostCell = (lostCell, typeOfCoordinates, newPosition) => {
   return lostCell[typeOfCoordinates] && lostCell[typeOfCoordinates].includes(newPosition[typeOfCoordinates]);
 };
-
-// export const robotUtils = (
-//   currentPosition,
-//   instructions,
-//   gridMap,
-//   lostCell
-// ) => {
-//   const currentPosArray = currentPosition.split(" ");
-//   let newPosition = {
-//     x: parseInt(currentPosArray[0]),
-//     y: parseInt(currentPosArray[1]),
-//     d: currentPosArray[2],
-//   };
-
-//   [...instructions].some((nextInstruction, index) => {
-//     if (nextInstruction === "L") {
-//       newPosition.d = LEFT_TURNS_MAP[newPosition.d];
-//     } else if (nextInstruction === "R") {
-//       newPosition.d = RIGHT_TURNS_MAP[newPosition.d];
-//     } else if (nextInstruction === "F") {
-//       const newPositionWithDirection = frontMove(
-//         newPosition.d,
-//         newPosition,
-//         gridMap,
-//         lostCell
-//       );
-//       newPosition = {
-//         ...newPosition,
-//         ...newPositionWithDirection,
-//       };
-//     }
-//     return typeof newPosition.lost !== "undefined";
-//   });
-
-//   return newPosition;
-// };
-
-//export default robotUtils;

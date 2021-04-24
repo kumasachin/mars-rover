@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { GridRow } from "../../modules";
 import { robotNextStep } from "../../utils/robotMovement";
-
 import "./GridSurface.css";
 
 export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
-  const [robotPosition, setRobotNewPosition] = useState(robots);
+  const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellData, setLostCellData] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
@@ -25,10 +24,10 @@ export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
       instructionCount,
       numberOfRobotsRemainToPosition,
     } = iteratorForRobot;
-    const robotToMove = robotPosition[numberOfRobotsRemainToPosition];
+    const robotToMove = robotList[numberOfRobotsRemainToPosition];
 
     if (
-      robotPosition.length - 1 >= numberOfRobotsRemainToPosition &&
+      robotList.length - 1 >= numberOfRobotsRemainToPosition &&
       robotToMove.instructions.length > instructionCount
     ) {
       const robotWithNewPosition = robotNextStep(
@@ -47,7 +46,7 @@ export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
         lostCellUpdated.x.push(robotWithNewPosition.lost.x);
         lostCellUpdated.y.push(robotWithNewPosition.lost.y);
       }
-      const robotSetWithNewPosition = [...robotPosition];
+      const robotSetWithNewPosition = [...robotList];
 
       robotSetWithNewPosition[
         numberOfRobotsRemainToPosition
@@ -87,7 +86,7 @@ export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
 
   useEffect(() => {
     moveRobot();
-  }, [robotPosition]);
+  }, [robotList]);
 
   useEffect(() => {
     console.log("lostCellData", lostCellData);
@@ -105,7 +104,7 @@ export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
         <GridRow
           dimension={dimension}
           lostCell={lostCellData}
-          robots={robotPosition}
+          robots={robotList}
         />
       </tbody>
     </table>
