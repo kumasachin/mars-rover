@@ -13,14 +13,14 @@ const GridMap = ({ name = "unKnown surface" }) => {
       y: [2],
     },
     robots: [
-      {
+     {
         name: "Chintu",
-        x: 1,
+        x: 3,
         y: 1,
         d: "N",
         color: "red",
         currentPosition: "1 1 N",
-        instructions: "LR",
+        instructions: "RRF",
       }
     ],
   };

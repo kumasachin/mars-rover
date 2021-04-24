@@ -10,7 +10,10 @@ export const GridSurface = ({
   robots = [],
 }) => {
   const [robotPosition, setRobotNewPosition] = useState(robots);
-  const [instructionCount, setInstructionStatus] = useState(0);
+  const [iteratorForRobot, setInstructionStatus] = useState({
+    instructionCount: 0,
+    numberOfRobotsRemainToPosition: 0
+  });
 
   const delay = async (delayInms) => {
     return new Promise(resolve  => {
@@ -22,14 +25,24 @@ export const GridSurface = ({
 
   const moveRobot = async () => {
     const robotToMove = robots[robots.length - 1];
-    if (robotToMove.instructions.length > instructionCount) {
-      const robotWithNewPosition = robotNextStep(robotPosition[robotPosition.length - 1], instructionCount);
+    const {
+      instructionCount,
+      numberOfRobotsRemainToPosition
+    } = iteratorForRobot;
+
+    if (robotPosition.length - 1 >= numberOfRobotsRemainToPosition && robotToMove.instructions.length > instructionCount) {
+      const robotWithNewPosition = robotNextStep(robotPosition[numberOfRobotsRemainToPosition], instructionCount, dimension);
+      console.log("robotWithNewPosition", robotWithNewPosition);
       const robotSetWithNewPosition = [...robotPosition];
       robotSetWithNewPosition.pop();
       robotSetWithNewPosition.push(robotWithNewPosition);
       await delay(2000);
-      setInstructionStatus(instructionCount+1);
+      setInstructionStatus({
+        instructionCount: instructionCount + 1,
+        numberOfRobotsRemainToPosition: robotToMove.instructions.length -1 <= instructionCount ? numberOfRobotsRemainToPosition + 1 : numberOfRobotsRemainToPosition
+      });
       setRobotNewPosition(robotSetWithNewPosition);
+
       console.log("after robot", robotSetWithNewPosition)
     }
   };

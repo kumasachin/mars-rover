@@ -10,9 +10,6 @@
 .grid-row {
     min-height: 40px;
 }
-.lostRow {
-    background-color: red;;
-}
 
 .lostRow .lostCell {
     background-color: bisque;
