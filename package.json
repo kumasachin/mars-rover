@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.1.5",
+    "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
@@ -13,13 +14,14 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && nodemon index",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:snapshot": "npm run test -- -u",
     "eject": "react-scripts eject",
     "test:coverage": "npm run test -- --coverage --watchAll=false"
   },
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -66,6 +68,7 @@
   },
   "devDependencies": {
     "husky": "^6.0.0",
+    "nodemon": "^2.0.7",
     "pretty-quick": "^3.1.0"
   }
 }

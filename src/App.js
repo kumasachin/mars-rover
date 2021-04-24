@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  GridMap,
+  Planet,
 } from "./components/";
 import "./App.css";
 
@@ -10,7 +10,7 @@ const App = () => {
       <header>
         <h1 data-testid="application-heading">Mars Rover project</h1>
       </header>
-      <GridMap name="Mars" />
+      <Planet name="Mars" />
     </div>
   );
 }

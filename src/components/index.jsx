@@ -1,7 +1,7 @@
-import GridMap from './GridMap/GridMap';
-import GridSurface from './GridSurface/GridSurface'
+import Planet from './Planet/Planet';
+import Grid from './Grid/Grid'
 
 export {
-    GridMap,
-    GridSurface
+    Planet,
+    Grid
 }
