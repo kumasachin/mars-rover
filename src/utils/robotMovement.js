@@ -15,15 +15,15 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
     case "N":
         robotNewDetails.y = 
         checkCurrentIsLostCell(lostCell, "y", robotNewDetails) &&
-        (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0)
-          ? robotNewDetails.y
+        (gridMap.y <= robotNewDetails.y+1 || robotNewDetails.y === 0)
+          ? robotNewDetails.y 
           : robotNewDetails.y + 1;
 
       if (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0) {
         robotNewDetails = {
           ...robotNewDetails,
           lost: {
-            ...robotNewDetails,
+            x: robotNewDetails.x,
             y: robotNewDetails.y - 1,
           },
         };
@@ -32,16 +32,17 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
     case "S":
         robotNewDetails.y =
         checkCurrentIsLostCell(lostCell, "y", robotNewDetails) &&
-        (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0)
-          ? robotNewDetails.y
-          : robotNewDetails.y - 1;
+        (gridMap.y < robotNewDetails.y -1 || robotNewDetails.y === 0)
+          ? robotNewDetails.y 
+          : robotNewDetails.y- 1 ;
 
       if (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0) {
+        console.log("y", robotNewDetails.y + 1);
         robotNewDetails = {
           ...robotNewDetails,
           // y: newPosition.y + 1,
           lost: {
-            ...robotNewDetails,
+            x: robotNewDetails.x,
             y: robotNewDetails.y + 1,
           },
         };
@@ -50,17 +51,18 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
     case "E":
         robotNewDetails.x =
         checkCurrentIsLostCell(lostCell, "x", robotNewDetails) &&
-        (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0)
-          ? robotNewDetails.x
-          : robotNewDetails.x + 1;
+        (gridMap.x < robotNewDetails.x+1 || robotNewDetails.x === 0)
+          ? robotNewDetails.x 
+          : robotNewDetails.x+ 1;
 
       if (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0) {
+        console.log("x", robotNewDetails.x - 1);
         robotNewDetails = {
           ...robotNewDetails,
           //  y: newPosition.x - 1,
           lost: {
-            ...robotNewDetails,
-            y: robotNewDetails.x - 1,
+            y: robotNewDetails.y,
+            x: robotNewDetails.x - 1,
           },
         };
       }
@@ -68,17 +70,18 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
     case "W":
         robotNewDetails.x =
         checkCurrentIsLostCell(lostCell, "x", robotNewDetails) &&
-        (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0)
+        (gridMap.x <= robotNewDetails.x-1 || robotNewDetails.x === 0)
           ? robotNewDetails.x
           : robotNewDetails.x - 1;
 
-      if (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0) {
+      if (gridMap.x < robotNewDetails.x || robotNewDetails.x < 0) {
+        console.log("x", robotNewDetails.x + 1);
+
         robotNewDetails = {
           ...robotNewDetails,
-          // y: newPosition.x + 1,
           lost: {
-            ...robotNewDetails,
-            y: robotNewDetails.x + 1,
+            y: robotNewDetails.y,
+            x: robotNewDetails.x + 1,
           },
         };
       }
@@ -89,7 +92,7 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
   return robotNewDetails;
 };
 
-export const robotNextStep = (robotDetails, instructionCount, dimension) => {
+export const robotNextStep = (robotDetails, instructionCount, dimension, lostCell) => {
   let robotWithNewPosition = {
     ...robotDetails,
   };
@@ -101,7 +104,7 @@ export const robotNextStep = (robotDetails, instructionCount, dimension) => {
   } else if (nextInstruction === "R") {
     robotWithNewPosition.d = RIGHT_TURNS_MAP[robotWithNewPosition.d];
   } else if (nextInstruction === "F") {
-    const newPositionWithDirection = frontMove(robotWithNewPosition, dimension);
+    const newPositionWithDirection = frontMove(robotWithNewPosition, dimension, lostCell);
     robotWithNewPosition = {
       ...robotWithNewPosition,
       ...newPositionWithDirection,
@@ -112,7 +115,16 @@ export const robotNextStep = (robotDetails, instructionCount, dimension) => {
 };
 
 const checkCurrentIsLostCell = (lostCell, typeOfCoordinates, newPosition) => {
-  return lostCell[typeOfCoordinates] && lostCell[typeOfCoordinates].includes(newPosition[typeOfCoordinates]);
+  const lostCellFound = lostCell[typeOfCoordinates] && lostCell[typeOfCoordinates].includes(newPosition[typeOfCoordinates]);
+  //console.log("£££££££££££££££££££££££££££££££££££££££££££",  lostCell, typeOfCoordinates, lostCell[typeOfCoordinates]);
+
+  if( lostCell[typeOfCoordinates] ) {
+    ////console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",lostCell[typeOfCoordinates].includes(newPosition[typeOfCoordinates]))
+  }
+  if (lostCellFound) {
+    ////console.log("#######################Lost Cell##################################", newPosition)
+  }
+  return lostCellFound;
 };
 
 // export const robotUtils = (

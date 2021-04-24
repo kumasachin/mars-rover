@@ -10,6 +10,7 @@ export const GridSurface = ({
   robots = [],
 }) => {
   const [robotPosition, setRobotNewPosition] = useState(robots);
+  const [lostCellData, setLostCellData] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
     numberOfRobotsRemainToPosition: 0
@@ -31,21 +32,28 @@ export const GridSurface = ({
     const robotToMove = robots[numberOfRobotsRemainToPosition];
     
     if (robotPosition.length - 1 >= numberOfRobotsRemainToPosition && robotToMove.instructions.length > instructionCount) {
-      console.log("numberOfRobotsRemainToPosition", numberOfRobotsRemainToPosition)
-    console.log("move", robotToMove.name, "with instruction", robotToMove.instructions);
-    console.log("robotNumber sequence", robotPosition.length - 1 >= numberOfRobotsRemainToPosition)
-    console.log("robot instruction", robotToMove.instructions, robotToMove.instructions.length > instructionCount)
+    //   console.log("numberOfRobotsRemainToPosition", numberOfRobotsRemainToPosition)
+    // console.log("move", robotToMove.name, "with instruction", robotToMove.instructions);
+    // console.log("robotNumber sequence", robotPosition.length - 1 >= numberOfRobotsRemainToPosition)
+    // console.log("robot instruction", robotToMove.instructions, robotToMove.instructions.length > instructionCount)
 
 
 
-      const robotWithNewPosition = robotNextStep(robotPosition[numberOfRobotsRemainToPosition], instructionCount, dimension);
-      console.log("robotWithNewPosition", robotWithNewPosition);
+      const robotWithNewPosition = robotNextStep(robotPosition[numberOfRobotsRemainToPosition], instructionCount, dimension, lostCell);
+      // console.log("robotWithNewPosition", robotWithNewPosition);
+      const lostCellUpdated = {...lostCellData};
+      
+      if (robotWithNewPosition.lost && ("x" in robotWithNewPosition.lost || "y" in robotWithNewPosition.lost)) {
+        lostCellUpdated.x.push(robotWithNewPosition.lost.x);
+        lostCellUpdated.y.push(robotWithNewPosition.lost.y);
+      }
+
       const robotSetWithNewPosition = [...robotPosition];
 
       robotSetWithNewPosition[numberOfRobotsRemainToPosition] = robotWithNewPosition;
       //robotSetWithNewPosition.push(robotWithNewPosition);
-      await delay(1000);
-      console.log("£££££££££££££",robotToMove.name, "command to excute", robotToMove.instructions[instructionCount]);
+      await delay(200);
+      // console.log("£££££££££££££",robotToMove.name, "command to excute", robotToMove.instructions[instructionCount]);
       if (robotToMove.instructions.length -1 <= instructionCount) {
         setInstructionStatus({
           instructionCount: 0,
@@ -57,8 +65,9 @@ export const GridSurface = ({
           numberOfRobotsRemainToPosition: numberOfRobotsRemainToPosition
         });
        }
+      setLostCellData(lostCellUpdated);
       setRobotNewPosition(robotSetWithNewPosition);
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$robotSetWithNewPosition", robotSetWithNewPosition);
+      // console.log("$$$$$$$$$$$$$$$$$$$$$$$$robotSetWithNewPosition", robotSetWithNewPosition);
      // console.log("after robot", robotSetWithNewPosition)
     }
   };
@@ -71,6 +80,10 @@ export const GridSurface = ({
     moveRobot();
   }, [robotPosition]);
 
+  useEffect(() => {
+    console.log("lostCellData", lostCellData)
+  }, [lostCellData]);
+
   return (
     <table
       cellSpacing="0"
@@ -82,7 +95,7 @@ export const GridSurface = ({
       <tbody>
         <GridRow
           dimension={dimension}
-          lostCell={lostCell}
+          lostCell={lostCellData}
           robots={robotPosition}
         />
       </tbody>

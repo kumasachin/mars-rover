@@ -9,6 +9,7 @@ const GridColumn = ({
   rowIndex,
   robotDetail = [],
 }) => {
+  console.log("robotDetail===========", robotDetail);
   const robotCell = (allRobotInCell) =>
     allRobotInCell.map((robot, index) => (
       <span key={`robot-${robot.name}-${index}`} className={`robot ${robot.d}`}>
@@ -20,8 +21,7 @@ const GridColumn = ({
   const renderColumn = () => {
     let columns = [];
     for (let index = 0; index < dimension.x; index++) {
-      const lostCellClass =
-        lostCell.x && lostCell.x.includes(index) ? "lostCell" : "";
+      let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
       const allRobotInCell = robotDetail.filter((robot) => {
         return robot.y === rowIndex && robot.x === index;
       });
