@@ -5,32 +5,32 @@ import "./GridMap.css";
 const GridMap = ({ name = "unKnown surface" }) => {
   const marsRover = {
     map: {
-      x: 16,
-      y: 16,
+      x: 6,
+      y: 6,
     },
     lostCell: {
-      x: [],
-      y: [],
+      x: [3],
+      y: [2],
     },
     robots: [
-      {
-        name: "",
+     {
+        name: "Chintu1",
         x: 0,
         y: 0,
         d: "N",
-        color: "red",
-        currentPosition: "0 0 E",
-        instructions: "FFFFFFFFFFFFFF",
+        color: "green",
+        currentPosition: "1 1 N",
+        instructions: "RFFF",
       },
       {
-        name: "",
-        x: 0,
-        y: 0,
+        name: "Chintu2",
+        x: 2,
+        y: 1,
         d: "N",
         color: "red",
-        currentPosition: "0 0 E",
-        instructions: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-      },
+        currentPosition: "1 1 N",
+        instructions: "LLRFF",
+      }
     ],
   };
 
