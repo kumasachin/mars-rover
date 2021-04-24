@@ -25,14 +25,14 @@ export const GridSurface = ({ dimension, lostCell = {}, robots = [] }) => {
       instructionCount,
       numberOfRobotsRemainToPosition,
     } = iteratorForRobot;
-    const robotToMove = robots[numberOfRobotsRemainToPosition];
+    const robotToMove = robotPosition[numberOfRobotsRemainToPosition];
 
     if (
       robotPosition.length - 1 >= numberOfRobotsRemainToPosition &&
       robotToMove.instructions.length > instructionCount
     ) {
       const robotWithNewPosition = robotNextStep(
-        robotPosition[numberOfRobotsRemainToPosition],
+        robotToMove,
         instructionCount,
         dimension,
         lostCell

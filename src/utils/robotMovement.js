@@ -89,7 +89,7 @@ const frontMove = (robotDetails, gridMap, lostCell={}) => {
   return robotNewDetails;
 };
 
-export const robotNextStep = (robotDetails, instructionCount, dimension) => {
+export const robotNextStep = (robotDetails, instructionCount, dimension, lostCell) => {
   let robotWithNewPosition = {
     ...robotDetails,
   };
@@ -101,7 +101,7 @@ export const robotNextStep = (robotDetails, instructionCount, dimension) => {
   } else if (nextInstruction === "R") {
     robotWithNewPosition.d = RIGHT_TURNS_MAP[robotWithNewPosition.d];
   } else if (nextInstruction === "F") {
-    const newPositionWithDirection = frontMove(robotWithNewPosition, dimension);
+    const newPositionWithDirection = frontMove(robotWithNewPosition, dimension, lostCell);
     robotWithNewPosition = {
       ...robotWithNewPosition,
       ...newPositionWithDirection,
