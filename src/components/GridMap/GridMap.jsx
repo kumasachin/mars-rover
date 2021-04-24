@@ -5,12 +5,12 @@ import "./GridMap.css";
 const GridMap = ({ name = "unKnown surface" }) => {
   const marsRover = {
     map: {
-      x: 6,
-      y: 6,
+      x: 16,
+      y: 16,
     },
     lostCell: {
-      x: [3],
-      y: [2],
+      x: [],
+      y: [],
     },
     robots: [
      {
@@ -20,17 +20,53 @@ const GridMap = ({ name = "unKnown surface" }) => {
         d: "N",
         color: "green",
         currentPosition: "1 1 N",
-        instructions: "RFFF",
+        instructions: "FFFFFFFFFFFFFFFFFFFFFF",
       },
       {
-        name: "Chintu2",
-        x: 2,
-        y: 1,
-        d: "N",
-        color: "red",
-        currentPosition: "1 1 N",
-        instructions: "LLRFF",
-      }
+         name: "Chintu2",
+         x: 0,
+         y: 0,
+         d: "N",
+         color: "green",
+         currentPosition: "1 1 N",
+         instructions: "RFFFFFFFF",
+       },
+       {
+          name: "Chintu2",
+          x: 0,
+          y: 0,
+          d: "S",
+          color: "green",
+          currentPosition: "1 1 N",
+          instructions: "LFFFFFFFFFFFFFFFF",
+        },
+        {
+           name: "Chintu2",
+           x: 0,
+           y: 0,
+           d: "E",
+           color: "green",
+           currentPosition: "1 1 N",
+           instructions: "LFFFFFFFFFFFFFFFFFFFFFFFF",
+         },
+         {
+            name: "Chintu2",
+            x: 0,
+            y: 0,
+            d: "W",
+            color: "green",
+            currentPosition: "1 1 N",
+            instructions: "FFFFFFFFFFFFFFFFFFFFFFFFFF",
+          },
+          {
+             name: "Chintu2",
+             x: 0,
+             y: 0,
+             d: "N",
+             color: "green",
+             currentPosition: "1 1 N",
+             instructions: "RFFFFFFFFFFFFFFFFFFFFF",
+           }
     ],
   };
 

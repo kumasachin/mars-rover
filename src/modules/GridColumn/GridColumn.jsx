@@ -20,8 +20,7 @@ const GridColumn = ({
   const renderColumn = () => {
     let columns = [];
     for (let index = 0; index < dimension.x; index++) {
-      const lostCellClass =
-        lostCell.x && lostCell.x.includes(index) ? "lostCell" : "";
+      let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
       const allRobotInCell = robotDetail.filter((robot) => {
         return robot.y === rowIndex && robot.x === index;
       });
