@@ -4,7 +4,7 @@ import { robotNextStep } from "../../utils/robotMovement";
 import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
-export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots = [] }) => {
+export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots = [], errorHandler }) => {
   const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
@@ -61,30 +61,35 @@ export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots 
   }
 
   const moveRobot = async () => {
-    const robot = pickRobotToMove();
-    const {
-      queueOfRobot,
-      instructionCount
-    } = iteratorForRobot;
-    const nextInstruction = detectRobotNextInstruction(robot);
-    const robotWithInstruction = passInstruction(robot, nextInstruction);
-    const robotListUpdated = updateRobotsList(robotWithInstruction);
-    const markRobotScent = markTheScent(robotWithInstruction);
+    try {
+      const robot = pickRobotToMove();
+      const {
+        queueOfRobot,
+        instructionCount
+      } = iteratorForRobot;
+      const nextInstruction = detectRobotNextInstruction(robot);
+      const robotWithInstruction = passInstruction(robot, nextInstruction);
+      const robotListUpdated = updateRobotsList(robotWithInstruction);
+      const markRobotScent = markTheScent(robotWithInstruction);
 
-    if(nextInstruction === null || robotWithInstruction.lost || robotWithInstruction.isOnEdge) {
-      setInstructionStatus({
-          instructionCount: 0,
-          queueOfRobot: numberOfRobots > queueOfRobot ? queueOfRobot + 1 : queueOfRobot
-      });
-    } else {
-      setInstructionStatus({
-        instructionCount: instructionCount + 1,
-        queueOfRobot: queueOfRobot,
-      });
+      if(nextInstruction === null || robotWithInstruction.lost || robotWithInstruction.isOnEdge) {
+        setInstructionStatus({
+            instructionCount: 0,
+            queueOfRobot: numberOfRobots > queueOfRobot ? queueOfRobot + 1 : queueOfRobot
+        });
+      } else {
+        setInstructionStatus({
+          instructionCount: instructionCount + 1,
+          queueOfRobot: queueOfRobot,
+        });
+      }
+      await delay(300);
+      setLostCellScent(markRobotScent);
+      setRobotNewPosition(robotListUpdated);
+    } catch (e) {
+      errorHandler();
+      console.log("unknow error while rendering grid");
     }
-    await delay(300);
-    setLostCellScent(markRobotScent);
-    setRobotNewPosition(robotListUpdated);
   }
 
   useEffect(() => {
@@ -103,6 +108,7 @@ export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots 
     >
       <tbody>
         <GridRow
+          errorHandler={errorHandler}
           dimension={dimension}
           lostCell={lostCellScent}
           robots={robotList}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GridColumn } from "../../modules";
 import "./GridRow.css";
 
-const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
+const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler }) => {
   const findRoboInRow = (rowNumber, typeOfCoordinates) => {
     const allRobots = robots.filter((robot) => {
       return rowNumber === robot[typeOfCoordinates];
@@ -12,31 +12,38 @@ const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
   };
 
   const renderRows = () => {
-    let rows = [];
+    try {
+      let rows = [];
 
-    for (let index = dimension.y - 1; index >= 0; index--) {
-      const isLostRowClass =
-        lostCell.y && lostCell.y.includes(index) ? "lostRow" : "";
-      const isRobotExitOnRow = findRoboInRow(index, "y");
+      for (let index = dimension.y - 1; index >= 0; index--) {
+        const isLostRowClass =
+          lostCell.y && lostCell.y.includes(index) ? "lostRow" : "";
+        const isRobotExitOnRow = findRoboInRow(index, "y");
 
-      rows.push(
-        <tr
-          key={`row-${index}`}
-          className={`grid-row row-${index} ${isLostRowClass}`}
-        >
-          {
-            <GridColumn
-              dimension={dimension}
-              lostCell={lostCell}
-              isLostRow={isLostRowClass && isLostRowClass}
-              rowIndex={index}
-              robotDetail={isRobotExitOnRow}
-            />
-          }
-        </tr>
-      );
+        rows.push(
+          <tr
+            key={`row-${index}`}
+            className={`grid-row row-${index} ${isLostRowClass}`}
+          >
+            {
+              <GridColumn
+                dimension={dimension}
+                lostCell={lostCell}
+                isLostRow={isLostRowClass && isLostRowClass}
+                rowIndex={index}
+                robotDetail={isRobotExitOnRow}
+                errorHandler={errorHandler}
+              />
+            }
+          </tr>
+        );
+      }
+
+      return rows;
+    } catch (e) {
+      errorHandler();
+      console.log("unknow error while rendering grid rows");
     }
-    return rows;
   };
 
   return <>{renderRows()}</>;

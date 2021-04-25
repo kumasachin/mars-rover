@@ -8,6 +8,7 @@ const GridColumn = ({
   lostCell = {},
   rowIndex,
   robotDetail = [],
+  errorHandler
 }) => {
   const robotCell = (allRobotInCell) =>
     allRobotInCell.map((robot, index) => (
@@ -18,24 +19,29 @@ const GridColumn = ({
     ));
 
   const renderColumn = () => {
-    let columns = [];
-    for (let index = 0; index < dimension.x; index++) {
-      let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
-      const allRobotInCell = robotDetail.filter((robot) => {
-        return robot.y === rowIndex && robot.x === index;
-      });
+    try {
+      let columns = [];
+      for (let index = 0; index < dimension.x; index++) {
+        let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
+        const allRobotInCell = robotDetail.filter((robot) => {
+          return robot.y === rowIndex && robot.x === index;
+        });
 
-      columns.push(
-        <td
-          key={`cell-${rowIndex}-${index}`}
-          className={`grid-column column-${index} ${lostCellClass} `}
-        >
-          {allRobotInCell.length > 0 ? robotCell(allRobotInCell) : <span />}
-        </td>
-      );
+        columns.push(
+          <td
+            key={`cell-${rowIndex}-${index}`}
+            className={`grid-column column-${index} ${lostCellClass} `}
+          >
+            {allRobotInCell.length > 0 ? robotCell(allRobotInCell) : <span />}
+          </td>
+        );
+      }
+
+      return columns;
+    } catch (e) {
+      errorHandler();
+      console.log("unknow error while rendering grid columns");
     }
-
-    return columns;
   };
 
   return <>{renderColumn()}</>;

@@ -17,92 +17,51 @@ export const robotNextStep = ({robotToMove, nextInstruction, dimension, lostCell
       "W": "x"
     }
     const {
-      d,
-      x,
-      y
+      d
     } = robotNewDetails;
-    const gridMap = dimension;
     
     switch (d) {
       case "N":
-        if (checkCurrentIsNoLostCell(lostCell, "y", robotNewDetails, dimension)) {
+        if (checkCurrentIsNoLostCell(lostCell, "y", d, robotNewDetails, dimension)) {
           robotNewDetails.y = robotNewDetails.y + 1;
         } else {
           robotNewDetails.isOnEdge = true;
         }
-        if (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0) {
-          robotNewDetails = {
-            ...robotNewDetails,
-            lost: {
-              x: robotNewDetails.x,
-              y: robotNewDetails.y - 1,
-            },
-          };
-        }
 
         break;
       case "S":
-        if (checkCurrentIsNoLostCell(lostCell, "y", robotNewDetails, dimension)) {
+        if (checkCurrentIsNoLostCell(lostCell, "y", d, robotNewDetails, dimension)) {
           robotNewDetails.y = robotNewDetails.y - 1;
         }else {
           robotNewDetails.isOnEdge = true;
         }
-        if (gridMap.y <= robotNewDetails.y || robotNewDetails.y < 0) {
-          robotNewDetails = {
-            ...robotNewDetails,
-            // y: newPosition.y + 1,
-            lost: {
-              x: robotNewDetails.x,
-              y: robotNewDetails.y + 1,
-            },
-          };
-        }
         break;
       case "E":
-        if (checkCurrentIsNoLostCell(lostCell, "x", robotNewDetails, dimension)) {
+        if (checkCurrentIsNoLostCell(lostCell, "x", d, robotNewDetails, dimension)) {
           robotNewDetails.x = robotNewDetails.x + 1;
         }else {
           robotNewDetails.isOnEdge = true;
         }
-          
-        if (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0) {
-          robotNewDetails = {
-            ...robotNewDetails,
-            lost: {
-              y: robotNewDetails.y,
-              x: robotNewDetails.x - 1,
-            },
-          };
-        }
         break;
       case "W":
-        if (checkCurrentIsNoLostCell(lostCell, "x", robotNewDetails, dimension)) {
+        if (checkCurrentIsNoLostCell(lostCell, "x", d, robotNewDetails, dimension)) {
           robotNewDetails.x = robotNewDetails.x - 1;
         } else {
           robotNewDetails.isOnEdge = true;
         }
 
-        if (gridMap.x <= robotNewDetails.x || robotNewDetails.x < 0) {
-          robotNewDetails = {
-            ...robotNewDetails,
-            lost: {
-              y: robotNewDetails.y,
-              x: robotNewDetails.x + 1,
-            },
-          };
-        }
         break;
       default:
       // code block
     }
 
-    // //Reset value set by above if robot is lost
-    // robotNewDetails = checkIfRobotIsLost({
-    //   dimension: dimension, 
-    //   axis: frontMoveMapping[d], 
-    //   direction: d,
-    //   robotNewDetails: robotNewDetails
-    // });
+    //Reset value set by above if robot is lost
+    robotNewDetails = checkIfRobotIsLost({
+      dimension: dimension, 
+      axis: frontMoveMapping[d], 
+      direction: d,
+      robotNewDetails: robotNewDetails
+    });
 
     return robotNewDetails;
   };
@@ -123,12 +82,17 @@ export const robotNextStep = ({robotToMove, nextInstruction, dimension, lostCell
 };
 
 
-const checkCurrentIsNoLostCell = (lostCell, typeOfCoordinates, robotNewDetails, gridMap) => {
+const checkCurrentIsNoLostCell = (lostCell, axis, direction, robotNewDetails, dimension) => {
   const scentFound = lostCell["x"].includes(robotNewDetails["x"]) && lostCell["y"].includes(robotNewDetails["y"]);
-  const isRobotOnEdge = gridMap[typeOfCoordinates]-1 === robotNewDetails[typeOfCoordinates] || robotNewDetails[typeOfCoordinates] === 0;
-
-  if (scentFound && isRobotOnEdge) {
-    return false
+  const isRobotOnEdge = dimension[axis]-1 === robotNewDetails[axis] || robotNewDetails[axis] === 0;
+  
+  if (scentFound && isRobotOnEdge ) {
+    if (direction === "N" || direction === "E") {
+      return dimension[axis] > robotNewDetails[axis] + 1;
+    } else if (direction === "S" || direction === "W") {
+      return dimension[axis] < robotNewDetails[axis] - 1;
+    }
+    return false;
   }
 
   return true;
@@ -145,11 +109,13 @@ const checkIfRobotIsLost = ({dimension, axis, direction, robotNewDetails}) => {
       },
     };
 
+    // log the scent
     if (direction === "N" || direction === "E") {
       lostRobot.lost[axis] = robotNewDetails[axis] - 1;
     } else if (direction === "S" || direction === "W") {
       lostRobot.lost[axis] = robotNewDetails[axis] + 1;
     }
+    return lostRobot
   }
 
   return robotNewDetails;
