@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GiVintageRobot } from "react-icons/gi";
 
 import "./GridColumn.css";
@@ -34,6 +34,7 @@ const GridColumn = ({
         </td>
       );
     }
+
     return columns;
   };
 

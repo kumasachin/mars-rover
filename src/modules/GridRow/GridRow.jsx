@@ -3,7 +3,6 @@ import { GridColumn } from "../../modules";
 import "./GridRow.css";
 
 const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
-  const [mapRenderFlag, setMapRenderFlag] = useState(false);
   const findRoboInRow = (rowNumber, typeOfCoordinates) => {
     const allRobots = robots.filter((robot) => {
       return rowNumber === robot[typeOfCoordinates];
@@ -14,7 +13,6 @@ const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
 
   const renderRows = () => {
     let rows = [];
-    const { x, y } = robots;
 
     for (let index = dimension.y - 1; index >= 0; index--) {
       const isLostRowClass =

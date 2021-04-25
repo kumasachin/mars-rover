@@ -4,16 +4,14 @@ import { robotNextStep } from "../../utils/robotMovement";
 import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
-export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
+export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots = [] }) => {
   const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
-    queueOfRobot: 0,
+    queueOfRobot: 0
   });
   const numberOfRobots = robotList.length;
-
-
   const updateRobotsList = (robotWithNewPosition) => {
       const robotListUpdated = [...robotList];
       robotListUpdated[iteratorForRobot.queueOfRobot] = robotWithNewPosition;
@@ -52,9 +50,8 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
   const markTheScent = (robotWithInstruction) => {
     const lostCellScentUpdated = { ...lostCellScent };
     if (
-      robotWithInstruction.isOnEdge ||
-      (robotWithInstruction.lost &&
-      ("x" in robotWithInstruction.lost || "y" in robotWithInstruction.lost))
+      robotWithInstruction.lost &&
+      ("x" in robotWithInstruction.lost || "y" in robotWithInstruction.lost)
     ) {
       lostCellScentUpdated.x.push(robotWithInstruction.lost.x);
       lostCellScentUpdated.y.push(robotWithInstruction.lost.y);
@@ -91,10 +88,10 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
   }
 
   useEffect(() => {
-    if(iteratorForRobot.queueOfRobot < numberOfRobots) {
+    if(excutionStatus && iteratorForRobot.queueOfRobot < numberOfRobots) {
       moveRobot();
     }
-  }, [null, robotList]);
+  }, [null, robotList, excutionStatus]);
 
   return (
     <table

@@ -15,20 +15,20 @@
        {
           "name":"Chintu1",
           "color":"green",
-          "currentPosition":"1 1 N",
-          "instructions":"FLFFFFFFFFFFFFFFFFFFFF"
+          "currentPosition":"0 0 N",
+          "instructions":"FFFFFFFFFFFFFFFFFFF"
        },
        {
-          "name":"Chintu1",
-          "color":"blue",
-          "currentPosition":"1 1 N",
-          "instructions":"FLFFFFFFFFFFFFFFFFFFFF"
-       },
-       {
-          "name":"Chintu2",
-          "color":"red",
-          "currentPosition":"1 1 N",
-          "instructions":"RFFFFFFFF"
-       }
+         "name":"Chintu2",
+         "color":"green",
+         "currentPosition":"0 0 N",
+         "instructions":"FFFFFFFFFFFFRFFFFFFFF"
+      },
+      {
+        "name":"Chintu2",
+        "color":"green",
+        "currentPosition":"0 0 N",
+        "instructions":"FFFFFFFFFFFFFFFFFRFFFFFFRRF"
+     }
     ]
  }
