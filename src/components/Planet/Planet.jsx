@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "../Grid/Grid";
 import { useFetch } from "../../hooks/useFetch";
+import path from "../../config/path"
 import "./Planet.css";
 
 const Planet = ({ name = "unKnown surface" }) => {
   const [robots, setMarsRobot] = useState(null);
-  const { response } = useFetch("/mars-robot", {});
+  const { response } = useFetch(path.marsapi);
 
   useEffect(() => {
     if (response) {

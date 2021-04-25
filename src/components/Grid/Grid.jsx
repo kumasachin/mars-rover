@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GridRow } from "../../modules";
 import { robotNextStep } from "../../utils/robotMovement";
+import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
 export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
@@ -11,13 +12,7 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
     numberOfRobotsRemainToPosition: 0,
   });
 
-  const delay = async (delayInms) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(2);
-      }, delayInms);
-    });
-  };
+ 
 
   const moveRobot = async () => {
     const {
@@ -50,14 +45,7 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
       robotSetWithNewPosition[
         numberOfRobotsRemainToPosition
       ] = robotWithNewPosition;
-      //robotSetWithNewPosition.push(robotWithNewPosition);
       await delay(300);
-      console.log(
-        "£££££££££££££",
-        robotToMove.name,
-        "command to excute",
-        robotToMove.instructions[instructionCount]
-      );
       if (robotToMove.instructions.length - 1 <= instructionCount) {
         setInstructionStatus({
           instructionCount: 0,
@@ -71,25 +59,12 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
       }
       setLostCellData(lostCellUpdated);
       setRobotNewPosition(robotSetWithNewPosition);
-      console.log(
-        "$$$$$$$$$$$$$$$$$$$$$$$$robotSetWithNewPosition",
-        robotSetWithNewPosition
-      );
-      // console.log("after robot", robotSetWithNewPosition)
     }
   };
 
   useEffect(() => {
     moveRobot();
-  }, []);
-
-  useEffect(() => {
-    moveRobot();
-  }, [robotList]);
-
-  useEffect(() => {
-    console.log("lostCellData", lostCellData);
-  }, [lostCellData]);
+  }, [, robotList]);
 
   return (
     <table

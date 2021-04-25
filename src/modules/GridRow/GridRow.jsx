@@ -4,8 +4,6 @@ import "./GridRow.css";
 
 const GridRow = ({ dimension = {}, lostCell = {}, robots = {} }) => {
   const [mapRenderFlag, setMapRenderFlag] = useState(false);
-
-
   const findRoboInRow = (rowNumber, typeOfCoordinates) => {
     const allRobots = robots.filter((robot) => {
       return rowNumber === robot[typeOfCoordinates];
