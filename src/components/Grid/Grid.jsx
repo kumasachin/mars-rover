@@ -6,65 +6,95 @@ import "./Grid.css";
 
 export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
   const [robotList, setRobotNewPosition] = useState(robots);
-  const [lostCellData, setLostCellData] = useState(lostCell);
+  const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
-    numberOfRobotsRemainToPosition: 0,
+    queueOfRobot: 0,
   });
+  const numberOfRobots = robotList.length;
 
- 
 
-  const moveRobot = async () => {
+  const updateRobotsList = (robotWithNewPosition) => {
+      const robotListUpdated = [...robotList];
+      robotListUpdated[iteratorForRobot.queueOfRobot] = robotWithNewPosition;
+      return robotListUpdated;
+  }
+
+  const detectRobotNextInstruction = (robotToMove) => {
     const {
-      instructionCount,
-      numberOfRobotsRemainToPosition,
+      queueOfRobot,
+      instructionCount
     } = iteratorForRobot;
-    const robotToMove = robotList[numberOfRobotsRemainToPosition];
-
-    if (
-      robotList.length - 1 >= numberOfRobotsRemainToPosition &&
-      robotToMove.instructions.length > instructionCount
-    ) {
-      const robotWithNewPosition = robotNextStep(
-        robotToMove,
-        instructionCount,
-        dimension,
-        lostCell
-      );
-      const lostCellUpdated = { ...lostCellData };
-
-      if (
-        robotWithNewPosition.lost &&
-        ("x" in robotWithNewPosition.lost || "y" in robotWithNewPosition.lost)
-      ) {
-        lostCellUpdated.x.push(robotWithNewPosition.lost.x);
-        lostCellUpdated.y.push(robotWithNewPosition.lost.y);
-      }
-      const robotSetWithNewPosition = [...robotList];
-
-      robotSetWithNewPosition[
-        numberOfRobotsRemainToPosition
-      ] = robotWithNewPosition;
-      await delay(300);
-      if (robotToMove.instructions.length - 1 <= instructionCount) {
-        setInstructionStatus({
-          instructionCount: 0,
-          numberOfRobotsRemainToPosition: numberOfRobotsRemainToPosition + 1,
-        });
-      } else {
-        setInstructionStatus({
-          instructionCount: instructionCount + 1,
-          numberOfRobotsRemainToPosition: numberOfRobotsRemainToPosition,
-        });
-      }
-      setLostCellData(lostCellUpdated);
-      setRobotNewPosition(robotSetWithNewPosition);
+    if (numberOfRobots - 1 >= queueOfRobot && robotToMove.instructions.length >= instructionCount) {
+      return robotToMove.instructions[instructionCount];
     }
+    return null;
+  }
+
+  const pickRobotToMove = () => {
+    const {
+      queueOfRobot,
+    } = iteratorForRobot;
+    console.log("queue", queueOfRobot)
+    return robotList[queueOfRobot];
+  }
+
+  const passInstruction = (robot, nextInstruction) => {
+      const robotWithNewPosition = robotNextStep({
+        robotToMove: robot,
+        nextInstruction: nextInstruction,
+        dimension: dimension,
+        lostCell: lostCellScent
+      });
+      return robotWithNewPosition;
   };
 
+  const markTheScent = (robotWithInstruction) => {
+    const lostCellScentUpdated = { ...lostCellScent };
+    if (
+      robotWithInstruction.isOnEdge ||
+      (robotWithInstruction.lost &&
+      ("x" in robotWithInstruction.lost || "y" in robotWithInstruction.lost))
+    ) {
+      lostCellScentUpdated.x.push(robotWithInstruction.lost.x);
+      lostCellScentUpdated.y.push(robotWithInstruction.lost.y);
+    }
+
+    return lostCellScentUpdated;
+  }
+
+  const moveRobot = async () => {
+    const robot = pickRobotToMove();
+    const {
+      queueOfRobot,
+      instructionCount
+    } = iteratorForRobot;
+    const nextInstruction = detectRobotNextInstruction(robot);
+    const robotWithInstruction = passInstruction(robot, nextInstruction);
+    const robotListUpdated = updateRobotsList(robotWithInstruction);
+    const markRobotScent = markTheScent(robotWithInstruction);
+
+    if(nextInstruction === null || robotWithInstruction.lost || robotWithInstruction.isOnEdge) {
+      setInstructionStatus({
+          instructionCount: 0,
+          queueOfRobot: numberOfRobots > queueOfRobot ? queueOfRobot + 1 : queueOfRobot
+      });
+    } else {
+      setInstructionStatus({
+        instructionCount: instructionCount + 1,
+        queueOfRobot: queueOfRobot,
+      });
+    }
+    await delay(300);
+    setLostCellScent(markRobotScent);
+    setRobotNewPosition(robotListUpdated);
+  }
+
   useEffect(() => {
-    moveRobot();
-  }, [, robotList]);
+    if(iteratorForRobot.queueOfRobot < numberOfRobots) {
+      moveRobot();
+    }
+  }, [null, robotList]);
 
   return (
     <table
@@ -77,7 +107,7 @@ export const Grid = ({ dimension, lostCell = {}, robots = [] }) => {
       <tbody>
         <GridRow
           dimension={dimension}
-          lostCell={lostCellData}
+          lostCell={lostCellScent}
           robots={robotList}
         />
       </tbody>

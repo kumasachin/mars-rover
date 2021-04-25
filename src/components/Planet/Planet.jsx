@@ -23,7 +23,7 @@ const Planet = ({ name = "unKnown surface" }) => {
 
       setMarsRobot([...robots]);
     }
-  }, response);
+  }, [response]);
 
   if (!robots) {
     return <div>Loading...</div>;

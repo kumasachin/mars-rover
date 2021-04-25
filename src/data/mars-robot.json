@@ -16,19 +16,19 @@
           "name":"Chintu1",
           "color":"green",
           "currentPosition":"1 1 N",
-          "instructions":"FFFFFFFFFFFFFFFFFFFFFF"
+          "instructions":"FLFFFFFFFFFFFFFFFFFFFF"
+       },
+       {
+          "name":"Chintu1",
+          "color":"blue",
+          "currentPosition":"1 1 N",
+          "instructions":"FLFFFFFFFFFFFFFFFFFFFF"
        },
        {
           "name":"Chintu2",
           "color":"red",
           "currentPosition":"1 1 N",
           "instructions":"RFFFFFFFF"
-       },
-       {
-          "name":"Chintu3",
-          "color":"blue",
-          "currentPosition":"1 1 N",
-          "instructions":"LFFLFFFFFFFFFFFFFF"
        }
     ]
  }
