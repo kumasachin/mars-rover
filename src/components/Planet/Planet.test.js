@@ -58,7 +58,6 @@ describe("Planet Grid rendering", () => {
 });
 
 describe('<Planet /> should pre loading sceent', () => {
-
   it('should have the button to start robot movement', () => {
     const container = mount(<Planet name="mars" />);
 
