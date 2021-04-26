@@ -77,23 +77,19 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
       <div className="column">
         <Terminal printLogs={terminalInput} />
       </div>
-      <div className="column">
-
-      <div className="row">
-        { 
-          isDataValid ?
-          <Grid
-            dimension={response.map}
-            robots={robots}
-            lostCell={response.lostCell}
-            excutionStatus={excutionStatus}
-            errorHandler={errorHandler}
-            onRobotAction={onRobotAction}
-          /> : <div>There are some issues in provided data. Please provide correct data</div>
-        }
+      <div className="column ">
+          { 
+            isDataValid ?
+            <Grid
+              dimension={response.map}
+              robots={robots}
+              lostCell={response.lostCell}
+              excutionStatus={excutionStatus}
+              errorHandler={errorHandler}
+              onRobotAction={onRobotAction}
+            /> : <div>There are some issues in provided data. Please provide correct data</div>
+          }
       </div>
-      </div>
-
     </>
   );
 };

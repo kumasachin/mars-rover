@@ -5,13 +5,6 @@ exports[`App should take a snapshot 1`] = `
   <div
     class="App"
   >
-    <header>
-      <h1
-        data-testid="application-heading"
-      >
-        Mars Rover project
-      </h1>
-    </header>
     <div>
       Loading...
     </div>

@@ -20,12 +20,15 @@ export const Terminal = ({printLogs}) => {
             )
         }): null;
     return (
-        <>
+        <div className="console">  
+            <header>
+            <h1 data-testid="application-heading">Mars Rover project</h1>
+            </header>
              <div  class="consolebody">
                 <p>></p>
                 {logs}
             </div>
-        </>
+        </ div>
     );
 };
 
