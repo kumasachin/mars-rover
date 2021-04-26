@@ -120,7 +120,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
           dimension={dimension}
           lostCell={lostCellScent}
           robots={robotList}
-          
+          roboToMove={iteratorForRobot.queueOfRobot}
         />
       </tbody>
     </table>
