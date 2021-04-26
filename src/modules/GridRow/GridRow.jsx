@@ -2,14 +2,15 @@ import React from "react";
 import { GridColumn } from "../../modules";
 import "./GridRow.css";
 
-const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler, roboToMove }) => {
+const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler, whichRoboToMove }) => {
   const findRoboInRow = (rowNumber, typeOfCoordinates) => {
-    if (rowNumber === robots[roboToMove][typeOfCoordinates]) {
-      return robots[roboToMove];
-    };
+    const allRobots = robots.filter((robot, index) => {
+        return whichRoboToMove >= index && rowNumber === robot[typeOfCoordinates];
+    });
 
-    return false;
+    return allRobots;
   };
+
 
   const renderRows = () => {
     try {
@@ -33,7 +34,7 @@ const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler, rob
                 rowIndex={index}
                 robotDetail={isRobotExitOnRow}
                 errorHandler={errorHandler}
-                roboToMove={roboToMove}
+                whichRoboToMove={whichRoboToMove}
               />
             }
           </tr>

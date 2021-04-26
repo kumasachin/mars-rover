@@ -16,10 +16,10 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
     setExcutionStatus(true);
   }
   const onRobotAction = (args) => {
-    if (terminalInput.length === 0 || args.isLost || terminalInput[terminalInput.length - 1].name !== args.name) {
+    if (terminalInput.length === 0 || args.isLost || terminalInput[0].name !== args.name) {
       setTerminalInput([
+        args,
         ...terminalInput,
-        args
       ]);
     }
   }

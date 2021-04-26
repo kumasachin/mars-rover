@@ -37,16 +37,16 @@
        "instructions":"FFFFFFFFFFFFFFFFR"
     },
     {
-      "name":"R4",
+      "name":"R5",
       "color":"blue",
       "currentPosition":"4 7 S",
       "instructions":"FFFFFFFFFFFFFFFFR"
    },
    {
-     "name":"R5",
+     "name":"R6",
      "color":"blue",
-     "currentPosition":"0 14 S",
-     "instructions":"FFFFFFFFFFLFR"
+     "currentPosition":"4 7 S",
+     "instructions":"FFFFFFFFFFFFFFFFR"
   }
     ]
  }

@@ -12,7 +12,7 @@ const defaultState = {
   },
   "robots":[
      {
-        "name":"Chintu1",
+        "name":"R1",
         "color":"green",
         "currentPosition":"0 0 N",
         "instructions":"FFFFFFFFFFFFFFFFFFF",
@@ -21,7 +21,7 @@ const defaultState = {
         "d":"N"
      },
      {
-        "name":"Chintu2",
+        "name":"R2",
         "color":"green",
         "currentPosition":"0 14 N",
         "instructions":"FRFFFFFFF",
@@ -53,7 +53,7 @@ describe("Trades", () => {
         y: [2]
     },
     robots: [{
-        name: "Chintu",
+        name: "R",
         x: 1,
         y: 1,
         d: "N",

@@ -1,8 +1,4 @@
 body {
-    min-width: 100vw;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     background-color: #eee;
   }
@@ -46,4 +42,7 @@ body {
   .one-robot-latest-log {
     font-weight: bold;
     margin: 0 0 20px;
-}
+  }
+  .Lost {
+    color: red;
+  }

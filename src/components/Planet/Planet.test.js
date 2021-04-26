@@ -23,7 +23,7 @@ const data = {
     },
     "robots": [
       {
-        "name": "Chintu1",
+        "name": "R1",
         "color": "green",
         "currentPosition": "0 0 N",
         "x": 0,
@@ -32,7 +32,7 @@ const data = {
         "instructions": "FFFFFFFFFFFFFFFFFFF"
       },
       {
-        "name": "Chintu2",
+        "name": "R2",
         "color": "green",
         "currentPosition": "0 14 N",
         "x": 0,
@@ -77,7 +77,7 @@ describe('<Planet /> should pre loading sceent', () => {
     container01.find("button.init").simulate("click");
     expect(
         container01.find(".robot").length
-      ).toBe(2);
+      ).toBe(1);
   });
 
   it('should change ui on click on buttoon', async () => {

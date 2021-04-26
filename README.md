@@ -21,7 +21,7 @@ Node.js is the only global dependency for this project. Please install node > 12
     -> changing in robot will define robot and their movement
         "robots":[
        {
-          "name":"Chintu1",
+          "name":"R1",
           "color":"green",
           "currentPosition":"0 0 N",
           "instructions":"FFFFFFFFFFFFFFFFFFF"

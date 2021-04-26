@@ -4,12 +4,16 @@ import "./Terminal.css";
 export const Terminal = ({printLogs}) => {
     const logs = printLogs ?
         printLogs.map((print, index) => {
+            const lostClass = print.isLost ?  "Lost" : "moving";
+            const onTerminal = index === 0 ? "one-robot-latest-log" :  "one-robot-log";
+
             return (
-                print.currentCoordinate ? <div className={index === 0 ? "one-robot-latest-log" :  "one-robot-log" }>
+                print.currentCoordinate ? <div key={`terminal-${index}`} className={`${lostClass} ${onTerminal}` }>
                     >{print.name}<br />
                     >{print.currentCoordinate}<br />
-                    >{print.instruction}<br /><br /><br />
-                    >{print.isLost && "Lost"}<br /><br /><br />
+                    >{print.instruction}<br />
+                    >{lostClass}<br />
+                    ---------------------------------------
                 </div> : <div className={index === 0 ? "one-map-latest-log" :  "one-map-log" }>
                     >
                 </div>
@@ -17,7 +21,7 @@ export const Terminal = ({printLogs}) => {
         }): null;
     return (
         <>
-             <div class="consolebody">
+             <div  class="consolebody">
                 <p>></p>
                 {logs}
             </div>

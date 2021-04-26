@@ -7,34 +7,33 @@ const GridColumn = ({
   dimension = {},
   lostCell = {},
   rowIndex,
-  robotDetail,
+  robotDetail = [],
   errorHandler,
-  roboToMove
+  whichRoboToMove
 }) => {
-  const robotCell = (robot) => (
-      <span key={`robot-${robot.name}-${roboToMove}`} className={`robot ${robot.d}`}>
+  const robotCell = (allRobotInCell) =>
+    allRobotInCell.map((robot, index) => (
+      <span key={`robot-${robot.name}-${index}`} className={`robot ${robot.d}`}>
         <GiVintageRobot size="1.8em" name={robot.name} color={robot.color} />
         {robot.name}
       </span>
-    )
+    ));
 
   const renderColumn = () => {
     try {
       let columns = [];
       for (let index = 0; index < dimension.x; index++) {
         let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
-        // const allRobotInCell = robotDetail.filter((robot) => {
-        //   return robotDetail[roboToMove].y === rowIndex && robot.x === index;
-        // });
-
-        const robotInCell = (robotDetail && robotDetail.y === rowIndex && robotDetail.x === index) && robotDetail;
+        const allRobotInCell = robotDetail.filter((robot, seq) => {
+          return whichRoboToMove >= seq && robot.y === rowIndex && robot.x === index;
+        });
 
         columns.push(
           <td
             key={`cell-${rowIndex}-${index}`}
             className={`grid-column column-${index} ${lostCellClass} `}
           >
-            {robotInCell? robotCell(robotInCell) : <span />}
+            {allRobotInCell.length > 0 ? robotCell(allRobotInCell) : <span />}
           </td>
         );
       }
