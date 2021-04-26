@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "../Grid/Grid";
+import { Terminal } from "../Terminal/Terminal";
 import {useFetch} from "../../hooks/use-fetch";
 import CONFIG from "../../config/"
 import "./Planet.css";
@@ -8,9 +9,19 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
   const [robots, setMarsRobot] = useState(data);
   const [excutionStatus, setExcutionStatus] = useState(false);
   const [isDataValid, setDataValidation] = useState(true);
+  const [terminalInput, setTerminalInput] = useState([]);
+
   const { response } = useFetch(CONFIG.PATH.marsapi);
   const onClickHandler = () => {
     setExcutionStatus(true);
+  }
+  const onRobotAction = (args) => {
+    if (terminalInput.length === 0 || args.isLost || terminalInput[terminalInput.length - 1].name !== args.name) {
+      setTerminalInput([
+        ...terminalInput,
+        args
+      ]);
+    }
   }
 
   const validateData = (robotdata) => {
@@ -63,6 +74,11 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
     <>
       <h2>This is {name}</h2>
       <button className="init" onClick={onClickHandler} type="button">Start Moving Robot</button>
+      <div className="column">
+        <Terminal printLogs={terminalInput} />
+      </div>
+      <div className="column">
+
       <div className="row">
         { 
           isDataValid ?
@@ -72,9 +88,12 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
             lostCell={response.lostCell}
             excutionStatus={excutionStatus}
             errorHandler={errorHandler}
+            onRobotAction={onRobotAction}
           /> : <div>There are some issues in provided data. Please provide correct data</div>
         }
       </div>
+      </div>
+
     </>
   );
 };

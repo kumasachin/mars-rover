@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Trades should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="consolebody"
+  >
+    <p>
+      &gt;
+    </p>
+  </div>
+</DocumentFragment>
+`;

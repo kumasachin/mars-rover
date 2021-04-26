@@ -13,37 +13,37 @@
     },
     "robots":[
        {
-          "name":"Chintu1",
+          "name":"R1",
           "color":"green",
           "currentPosition":"0 0 N",
           "instructions":"FFFFFFFFFFFFFFFFFFF"
        },
        {
-         "name":"Chintu2",
+         "name":"R2",
          "color":"green",
-         "currentPosition":"0 14 N",
+         "currentPosition":"1 11 N",
          "instructions":"FRFFFFFFF"
       },
       {
-        "name":"Chintu3",
+        "name":"R3",
         "color":"blue",
-        "currentPosition":"0 14 N",
+        "currentPosition":"3 1 N",
         "instructions":"FFFFFFFFR"
      },
      {
-       "name":"Chintu3",
+       "name":"R4",
        "color":"blue",
-       "currentPosition":"0 14 S",
+       "currentPosition":"2 3 S",
        "instructions":"FFFFFFFFFFFFFFFFR"
     },
     {
-      "name":"Chintu3",
+      "name":"R4",
       "color":"blue",
-      "currentPosition":"0 14 S",
+      "currentPosition":"4 7 S",
       "instructions":"FFFFFFFFFFFFFFFFR"
    },
    {
-     "name":"Chintu3",
+     "name":"R5",
      "color":"blue",
      "currentPosition":"0 14 S",
      "instructions":"FFFFFFFFFFLFR"

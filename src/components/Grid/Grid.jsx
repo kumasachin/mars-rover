@@ -4,7 +4,7 @@ import { robotNextStep } from "../../utils/robotMovement";
 import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
-export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots = [], errorHandler }) => {
+export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus = false, robots = [], errorHandler }) => { 
   const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
@@ -33,7 +33,6 @@ export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots 
     const {
       queueOfRobot,
     } = iteratorForRobot;
-    console.log("queue", queueOfRobot)
     return robotList[queueOfRobot];
   }
 
@@ -44,6 +43,15 @@ export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots 
         dimension: dimension,
         lostCell: lostCellScent
       });
+
+      onRobotAction({
+        currentCoordinate: robot.currentPosition,
+        instruction: robot.instructions,
+        name: robot.name,
+        newDirection: `${robotWithNewPosition.x} ${robotWithNewPosition.y}  ${robotWithNewPosition.d}`,
+        isLost: robotWithNewPosition.lost
+      });
+      
       return robotWithNewPosition;
   };
 
@@ -112,6 +120,7 @@ export const Grid = ({ dimension, lostCell = {}, excutionStatus = false, robots 
           dimension={dimension}
           lostCell={lostCellScent}
           robots={robotList}
+          
         />
       </tbody>
     </table>

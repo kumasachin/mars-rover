@@ -1,9 +1,8 @@
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import React from 'react';
-import Enzyme, { shallow, configure, mount } from 'enzyme';
+import Enzyme, {  mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Planet from './Planet';
-import {useFetch} from "../../hooks/use-fetch";
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -85,6 +84,6 @@ describe('<Planet /> should pre loading sceent', () => {
     const container01 = mount(<Planet name="mars" data={data.response.robots} />);
     const preClickHtml = container01.html();
     container01.find("button.init").simulate("click");
-    expect(container01.html()).toEqual(preClickHtml)
+    expect(container01.html()).not.toEqual(preClickHtml)
   });
 });
