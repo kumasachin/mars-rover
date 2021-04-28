@@ -5,13 +5,12 @@ import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
 export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus = false, robots = [], errorHandler }) => { 
-  const [robotList, setRobotNewPosition] = useState(robots);
+  const [robotList, setRobotNewPosition] = useState([...robots]);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
     queueOfRobot: 0
   });
-  const numberOfRobots = robotList.length;
   const updateRobotsList = (robotWithNewPosition) => {
       const robotListUpdated = [...robotList];
       robotListUpdated[iteratorForRobot.queueOfRobot] = robotWithNewPosition;
@@ -23,7 +22,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
       queueOfRobot,
       instructionCount
     } = iteratorForRobot;
-    if (numberOfRobots - 1 >= queueOfRobot && robotToMove.instructions.length >= instructionCount) {
+    if (robotList.length - 1 >= queueOfRobot && robotToMove.instructions.length >= instructionCount) {
       return robotToMove.instructions[instructionCount];
     }
     return null;
@@ -83,7 +82,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
       if(nextInstruction === null || robotWithInstruction.lost || robotWithInstruction.isOnEdge) {
         setInstructionStatus({
             instructionCount: 0,
-            queueOfRobot: numberOfRobots > queueOfRobot ? queueOfRobot + 1 : queueOfRobot
+            queueOfRobot: robotList.length > queueOfRobot ? queueOfRobot + 1 : queueOfRobot
         });
       } else {
         setInstructionStatus({
@@ -93,7 +92,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
       }
       await delay(300);
       setLostCellScent(markRobotScent);
-      setRobotNewPosition(robotListUpdated);
+      setRobotNewPosition([...robotListUpdated]);
     } catch (e) {
       errorHandler();
       console.log("unknow error while rendering grid");
@@ -101,7 +100,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
   }
 
   useEffect(() => {
-    if(excutionStatus && iteratorForRobot.queueOfRobot < numberOfRobots) {
+    if(excutionStatus && robotList && iteratorForRobot.queueOfRobot < robotList.length) {
       moveRobot();
     }
   }, [null, robotList, excutionStatus]);

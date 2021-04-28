@@ -6,14 +6,19 @@ import CONFIG from "../../config/"
 import "./Planet.css";
 
 const Planet = ({ name = "unKnown surface", data = null }) => {
-  const [robots, setMarsRobot] = useState(data);
-  const [excutionStatus, setExcutionStatus] = useState(false);
+  const [robots, setMarsRobot] = useState(null);
+  const [excutionStatus, setExcutionStatus] = useState(0);
   const [isDataValid, setDataValidation] = useState(true);
   const [terminalInput, setTerminalInput] = useState([]);
 
-  const { response } = useFetch(CONFIG.PATH.marsapi);
+  const { response } = useFetch(CONFIG.PATH.marsapi, null, excutionStatus);
   const onClickHandler = () => {
-    setExcutionStatus(true);
+    if(excutionStatus < 1) {
+     setExcutionStatus(excutionStatus + 1);
+    } else {
+      setMarsRobot(null);
+      setExcutionStatus(excutionStatus + 1);
+    }
   }
   const onRobotAction = (args) => {
     if (terminalInput.length === 0 || args.isLost || terminalInput[0].name !== args.name) {
@@ -66,10 +71,6 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
     }
   }, [response]);
 
-  if (!robots) {
-    return <div>Loading...</div>;
-  }
-  
   return (
     <>
       <h2>This is {name}</h2>
@@ -79,7 +80,7 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
       </div>
       <div className="column ">
           { 
-            isDataValid ?
+            (isDataValid && robots) &&
             <Grid
               dimension={response.map}
               robots={robots}
@@ -87,7 +88,7 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
               excutionStatus={excutionStatus}
               errorHandler={errorHandler}
               onRobotAction={onRobotAction}
-            /> : <div>There are some issues in provided data. Please provide correct data</div>
+            /> 
           }
       </div>
     </>
