@@ -5,7 +5,8 @@ import "./GridColumn.css";
 
 const GridColumn = ({
   dimension = {},
-  lostCell = {},
+  lostCell = {
+  },
   rowIndex,
   robotDetail = [],
   errorHandler,
@@ -23,7 +24,10 @@ const GridColumn = ({
     try {
       let columns = [];
       for (let index = 0; index < dimension.x; index++) {
-        let lostCellClass = lostCell.x && lostCell.x.includes(index) && lostCell.y && lostCell.y.includes(rowIndex) ? "lostCell" : "";
+        let currentRowIndexInLostCell =  lostCell.x.indexOf(index);
+        let isCurrentColumnInLostCell = lostCell.y[currentRowIndexInLostCell] === rowIndex;
+
+        let lostCellClass = currentRowIndexInLostCell >= 0 && isCurrentColumnInLostCell ? "lostCell" : "";
         const allRobotInCell = robotDetail.filter((robot, seq) => {
           return whichRoboToMove >= seq && robot.y === rowIndex && robot.x === index;
         });
