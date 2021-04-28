@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid } from "../Grid/Grid";
 import { Terminal } from "../Terminal/Terminal";
 import {useFetch} from "../../hooks/use-fetch";
-import CONFIG from "../../config/";
+import {CONFIG} from "../../config/";
 import LABELS from "../../copy/label";
 import "./Planet.css";
 
@@ -15,7 +15,6 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
     PAGE: {
       PLANET: {
         ACTBUTON01,
-        ACTBUTON02,
         DATA_NOT_FOUND
       }
     },
@@ -111,6 +110,11 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
               errorHandler={errorHandler}
               onRobotAction={onRobotAction}
             /> 
+          }
+          {
+            !isDataValid && <div>
+              {DATA_NOT_FOUND}
+            </div>
           }
       </div>
     </>

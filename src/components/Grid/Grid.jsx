@@ -97,7 +97,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
       errorHandler();
       console.log("unknow error while rendering grid");
     }
-  }
+  };
 
   useEffect(() => {
     if(excutionStatus && robotList && iteratorForRobot.queueOfRobot < robotList.length) {

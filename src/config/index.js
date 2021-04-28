@@ -1,4 +1,4 @@
-export default {
+export const CONFIG = {
     MAX_COORDINATE_LENGTH: 50,
     DIRECTIONS: [
         "N", "S", "E", "W"
@@ -10,3 +10,5 @@ export default {
         "marsapi": "/mars-robot"
     }
 }
+
+export default CONFIG;
