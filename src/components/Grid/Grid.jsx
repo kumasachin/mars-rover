@@ -5,7 +5,7 @@ import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
 export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus = false, robots = [], errorHandler }) => { 
-  const [robotList, setRobotNewPosition] = useState([...robots]);
+  const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
     instructionCount: 0,
@@ -103,7 +103,7 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
     if(excutionStatus && robotList && iteratorForRobot.queueOfRobot < robotList.length) {
       moveRobot();
     }
-  }, [null, robotList, excutionStatus]);
+  }, [robotList, excutionStatus]);
 
   return (
     <table

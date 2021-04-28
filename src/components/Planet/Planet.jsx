@@ -48,7 +48,7 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
   useEffect(() => {
     try {
       if (response) {
-        const robots = [...response.robots];
+        const robots = response.robots;
         robots.forEach((robot, index) => {
           const position = robot.currentPosition.split(" ");
           robots[index] = {
@@ -63,7 +63,7 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
           };
         });
 
-        setMarsRobot([...robots]);
+        setMarsRobot(robots);
       }
     } catch (e) {
       errorHandler();
