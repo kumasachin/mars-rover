@@ -26,7 +26,6 @@ const GridColumn = ({
       for (let index = 0; index < dimension.x; index++) {
         let currentRowIndexInLostCell =  lostCell.x.indexOf(index);
         let isCurrentColumnInLostCell = lostCell.y[currentRowIndexInLostCell] === rowIndex;
-
         let lostCellClass = currentRowIndexInLostCell >= 0 && isCurrentColumnInLostCell ? "lostCell" : "";
         const allRobotInCell = robotDetail.filter((robot, seq) => {
           return whichRoboToMove >= seq && robot.y === rowIndex && robot.x === index;

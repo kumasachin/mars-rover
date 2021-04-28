@@ -15,7 +15,6 @@ const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler, whi
   const renderRows = () => {
     try {
       let rows = [];
-
       for (let index = dimension.y - 1; index >= 0; index--) {
         const isLostRowClass =
           lostCell.y && lostCell.y.includes(index) ? "lostRow" : "";

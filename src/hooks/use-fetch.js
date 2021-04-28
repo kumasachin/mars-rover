@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (url, options, excutionStatus) => {
+export const useFetch = (url, options, triggerFetch) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const fetchData = async () => {
@@ -15,7 +15,7 @@ export const useFetch = (url, options, excutionStatus) => {
 
   useEffect(() => {
     fetchData();
-  }, [excutionStatus]);
+  }, [triggerFetch]);
   
   return { response, error };
 };

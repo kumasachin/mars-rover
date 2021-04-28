@@ -24,7 +24,7 @@ export const Terminal = ({printLogs}) => {
             <header>
             <h1 data-testid="application-heading">Mars Rover project</h1>
             </header>
-             <div  class="consolebody">
+             <div  className="consolebody">
                 <p>></p>
                 {logs}
             </div>

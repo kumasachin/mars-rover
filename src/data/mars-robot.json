@@ -16,14 +16,86 @@
           "name":"R1",
           "color":"green",
           "currentPosition":"0 0 N",
-          "instructions":"FFFFFFFFFFFFFFFFFFF"
+          "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
        },
-   
-   {
-     "name":"R6",
-     "color":"blue",
-     "currentPosition":"4 7 S",
-     "instructions":"FFFFFFFFFFFFFFFFR"
-  }
+       {
+          "name":"R1_1",
+          "color":"green",
+          "currentPosition":"0 0 N",
+          "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+       },
+      {
+         "name":"R2",
+         "color":"blue",
+         "currentPosition":"1 12 E",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R2_1",
+         "color":"blue",
+         "currentPosition":"1 12 E",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R3",
+         "color":"blue",
+         "currentPosition":"4 7 S",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R3_1",
+         "color":"blue",
+         "currentPosition":"4 7 S",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R4",
+         "color":"blue",
+         "currentPosition":"12 3 W",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R4_1",
+         "color":"blue",
+         "currentPosition":"12 3 W",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+
+      {
+         "name":"R2_2",
+         "color":"blue",
+         "currentPosition":"1 12 E",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R2_1_2",
+         "color":"blue",
+         "currentPosition":"1 12 E",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R3_2",
+         "color":"blue",
+         "currentPosition":"4 7 S",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R3_1_2",
+         "color":"blue",
+         "currentPosition":"4 7 S",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R4_2",
+         "color":"blue",
+         "currentPosition":"12 3 W",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      },
+      {
+         "name":"R4_1_2",
+         "color":"blue",
+         "currentPosition":"12 3 W",
+         "instructions":"FFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+      }
     ]
  }
