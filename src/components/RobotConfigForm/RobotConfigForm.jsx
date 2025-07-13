@@ -119,10 +119,12 @@ const RobotConfigForm = ({ onConfigSubmit, initialConfig }) => {
       >
         {showForm ? 'Hide Configuration' : 'Configure Robots'}
       </button>
+
       {showForm && (
         <div className="config-form-overlay">
           <div className="config-form">
             <h3>Robot Configuration</h3>
+            
             <form onSubmit={handleSubmit}>
               {/* Map Configuration */}
               <div className="form-section">

@@ -1,5 +1,5 @@
 // Application constants
-export const ROBOT_MOVE_DELAY = 1000; // 1 second delay for slower movement
+export const ROBOT_MOVE_DELAY = 300;
 export const DEFAULT_MAP_SIZE = { x: 16, y: 16 };
 export const ROBOT_COLORS = ["green", "blue", "red", "yellow", "purple", "orange"];
 export const DIRECTIONS = ["N", "S", "E", "W"];
