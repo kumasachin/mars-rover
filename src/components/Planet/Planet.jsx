@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "../Grid/Grid";
 import { Terminal } from "../Terminal/Terminal";
+import ConfigModal from "../ConfigModal/ConfigModal";
 import {useFetch} from "../../hooks/use-fetch";
 import CONFIG from "../../config/"
+import { saveConfigToLocal, loadConfigFromLocal, getDefaultConfig } from "../../utils/configStorage";
 import "./Planet.css";
 
 const Planet = ({ name = "unKnown surface", data = null }) => {
@@ -10,60 +12,27 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
   const [excutionStatus, setExcutionStatus] = useState(false);
   const [isDataValid, setDataValidation] = useState(true);
   const [terminalInput, setTerminalInput] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [response, setResponse] = useState(getDefaultConfig());
 
-  const response = {
-    "map":{
-       "x":16,
-       "y":16
-    },
-    "lostCell":{
-       "x":[
-          
-       ],
-       "y":[
-          
-       ]
-    },
-    "robots":[
-       {
-          "name":"R1",
-          "color":"green",
-          "currentPosition":"0 0 N",
-          "instructions":"FFFFFFFFFFFFFFFFFFF"
-       },
-       {
-         "name":"R2",
-         "color":"green",
-         "currentPosition":"1 11 N",
-         "instructions":"FRFFFFFFF"
-      },
-      {
-        "name":"R3",
-        "color":"blue",
-        "currentPosition":"3 1 N",
-        "instructions":"FFFFFFFFR"
-     },
-     {
-       "name":"R4",
-       "color":"blue",
-       "currentPosition":"2 3 S",
-       "instructions":"FFFFFFFFFFFFFFFFR"
-    },
-    {
-      "name":"R5",
-      "color":"blue",
-      "currentPosition":"4 7 S",
-      "instructions":"FFFFFFFFFFFFFFFFR"
-   },
-   {
-     "name":"R6",
-     "color":"blue",
-     "currentPosition":"4 7 S",
-     "instructions":"FFFFFFFFFFFFFFFFR"
-  }]
- };
   const onClickHandler = () => {
     setExcutionStatus(true);
+  }
+
+  const handleConfigSave = (newConfig) => {
+    // Reset execution status and terminal when config changes
+    setExcutionStatus(false);
+    setTerminalInput([]);
+    setResponse(newConfig);
+    saveConfigToLocal(newConfig);
+  }
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   }
   const onRobotAction = (args) => {
     if (terminalInput.length === 0 || args.isLost || terminalInput[0].name !== args.name) {
@@ -90,9 +59,20 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
     setDataValidation(true);
   }
 
+  // Load saved configuration on component mount
+  useEffect(() => {
+    const savedConfig = loadConfigFromLocal();
+    if (savedConfig) {
+      setResponse(savedConfig);
+    }
+  }, []);
+
   useEffect(() => {
     try {
       if (response) {
+        // Reset execution status when configuration changes
+        setExcutionStatus(false);
+        
         const robots = [...response.robots];
         robots.forEach((robot, index) => {
           const position = robot.currentPosition.split(" ");
@@ -101,6 +81,10 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
             x: parseInt(position[0]),
             y: parseInt(position[1]),
             d: position[2],
+            // Reset robot to initial state
+            instructionIndex: 0,
+            isLost: false,
+            path: []
           };
           if (!validateData({...robots[index]})) {
             setDataValidation(false);
@@ -123,7 +107,10 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
   return (
     <>
       <h2>This is {name}</h2>
-      <button className="init" onClick={onClickHandler} type="button">Start Moving Robot</button>
+      <div className="control-buttons">
+        <button className="init" onClick={onClickHandler} type="button">Start Moving Robot</button>
+        <button className="config" onClick={handleModalOpen} type="button">Configure Robots</button>
+      </div>
       <div className="column">
         <Terminal printLogs={terminalInput} />
       </div>
@@ -140,6 +127,12 @@ const Planet = ({ name = "unKnown surface", data = null }) => {
             /> : <div>There are some issues in provided data. Please provide correct data</div>
           }
       </div>
+      <ConfigModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onSave={handleConfigSave}
+        currentConfig={response}
+      />
     </>
   );
 };
