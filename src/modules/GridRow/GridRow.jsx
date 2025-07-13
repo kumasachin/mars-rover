@@ -44,7 +44,7 @@ const GridRow = ({ dimension = {}, lostCell = {}, robots = {}, errorHandler, whi
       return rows;
     } catch (e) {
       errorHandler();
-      console.error("Unknown error while rendering grid rows:", e);
+      console.log("unknow error while rendering grid rows");
     }
   };
 

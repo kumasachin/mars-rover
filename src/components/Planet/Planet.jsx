@@ -1,82 +1,20 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Grid } from "../Grid/Grid";
 import { Terminal } from "../Terminal/Terminal";
-import RobotConfigForm from "../RobotConfigForm/RobotConfigForm";
+import {useFetch} from "../../hooks/use-fetch";
 import CONFIG from "../../config/"
 import "./Planet.css";
 
-const Planet = ({ name = "unknown surface", data = null }) => {
+const Planet = ({ name = "unKnown surface", data = null }) => {
   const [robots, setMarsRobot] = useState(data);
-  const [executionStatus, setExecutionStatus] = useState(false);
+  const [excutionStatus, setExcutionStatus] = useState(false);
   const [isDataValid, setDataValidation] = useState(true);
   const [terminalInput, setTerminalInput] = useState([]);
-  const [currentConfig, setCurrentConfig] = useState(null);
 
-  // Initialize with default response
-  const [response, setResponse] = useState({
-    "map":{
-       "x":16,
-       "y":16
-    },
-    "lostCell":{
-       "x":[
-          
-       ],
-       "y":[
-          
-       ]
-    },
-    "robots":[
-       {
-          "name":"R1",
-          "color":"green",
-          "currentPosition":"0 0 N",
-          "instructions":"FFFFFFFFFFFFFFFFFFF"
-       },
-       {
-         "name":"R2",
-         "color":"green",
-         "currentPosition":"1 11 N",
-         "instructions":"FRFFFFFFF"
-      },
-      {
-        "name":"R3",
-        "color":"blue",
-        "currentPosition":"3 1 N",
-        "instructions":"FFFFFFFFR"
-     },
-     {
-       "name":"R4",
-       "color":"blue",
-       "currentPosition":"2 3 S",
-       "instructions":"FFFFFFFFFFFFFFFFR"
-    },
-    {
-      "name":"R5",
-      "color":"blue",
-      "currentPosition":"4 7 S",
-      "instructions":"FFFFFFFFFFFFFFFFR"
-   },
-   {
-     "name":"R6",
-     "color":"blue",
-     "currentPosition":"4 7 S",
-     "instructions":"FFFFFFFFFFFFFFFFR"
-  }
-    ]
- });
+  const { response } = useFetch(CONFIG.PATH.marsapi);
   const onClickHandler = () => {
-    setExecutionStatus(true);
+    setExcutionStatus(true);
   }
-
-  const handleConfigSubmit = (newConfig) => {
-    setResponse(newConfig);
-    setExecutionStatus(false);
-    setTerminalInput([]);
-    setDataValidation(true);
-  }
-
   const onRobotAction = (args) => {
     if (terminalInput.length === 0 || args.isLost || terminalInput[0].name !== args.name) {
       setTerminalInput([
@@ -105,7 +43,6 @@ const Planet = ({ name = "unknown surface", data = null }) => {
   useEffect(() => {
     try {
       if (response) {
-        setCurrentConfig(response);
         const robots = [...response.robots];
         robots.forEach((robot, index) => {
           const position = robot.currentPosition.split(" ");
@@ -125,7 +62,7 @@ const Planet = ({ name = "unknown surface", data = null }) => {
       }
     } catch (e) {
       errorHandler();
-      console.error("Unknown error while rendering planet:", e);
+      console.log("unknow error while rendering planet");
     }
   }, [response]);
 
@@ -136,13 +73,7 @@ const Planet = ({ name = "unknown surface", data = null }) => {
   return (
     <>
       <h2>This is {name}</h2>
-      <div className="controls">
-        <RobotConfigForm 
-          onConfigSubmit={handleConfigSubmit}
-          initialConfig={currentConfig}
-        />
-        <button className="init" onClick={onClickHandler} type="button">Start Moving Robot</button>
-      </div>
+      <button className="init" onClick={onClickHandler} type="button">Start Moving Robot</button>
       <div className="column">
         <Terminal printLogs={terminalInput} />
       </div>
@@ -153,7 +84,7 @@ const Planet = ({ name = "unknown surface", data = null }) => {
               dimension={response.map}
               robots={robots}
               lostCell={response.lostCell}
-              executionStatus={executionStatus}
+              excutionStatus={excutionStatus}
               errorHandler={errorHandler}
               onRobotAction={onRobotAction}
             /> : <div>There are some issues in provided data. Please provide correct data</div>
@@ -161,16 +92,6 @@ const Planet = ({ name = "unknown surface", data = null }) => {
       </div>
     </>
   );
-};
-
-Planet.propTypes = {
-  name: PropTypes.string,
-  data: PropTypes.array
-};
-
-Planet.defaultProps = {
-  name: "unknown surface",
-  data: null
 };
 
 export default Planet;

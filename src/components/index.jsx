@@ -1,9 +1,7 @@
 import Planet from './Planet/Planet';
-import Grid from './Grid/Grid';
-import RobotConfigForm from './RobotConfigForm/RobotConfigForm';
+import Grid from './Grid/Grid'
 
 export {
     Planet,
-    Grid,
-    RobotConfigForm
+    Grid
 }

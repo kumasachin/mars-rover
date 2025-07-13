@@ -1,14 +1,12 @@
-const CONFIG = {
+export default {
     MAX_COORDINATE_LENGTH: 50,
     DIRECTIONS: [
         "N", "S", "E", "W"
     ],
-    INSTRUCTIONS: [
+    INSTUCTIONS: [
         "L", "R", "F"
     ],
     PATH: {
         "marsapi": "/mars-robot"
     }
-};
-
-export default CONFIG;
+}
