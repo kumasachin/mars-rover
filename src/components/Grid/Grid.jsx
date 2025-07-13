@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GridRow } from "../../modules";
 import { robotNextStep } from "../../utils/robotMovement";
-import {delay} from "../../utils/commonUtils"
+import { delay } from "../../utils/commonUtils";
+import { ROBOT_MOVE_DELAY } from "../../constants";
 import "./Grid.css";
-
-// Constants
-const ROBOT_MOVE_DELAY = 300;
 
 export const Grid = ({ dimension, lostCell = {}, onRobotAction, executionStatus = false, robots = [], errorHandler }) => { 
   const [robotList, setRobotNewPosition] = useState(robots);
