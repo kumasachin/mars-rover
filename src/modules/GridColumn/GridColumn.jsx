@@ -45,7 +45,7 @@ const GridColumn = ({
       return columns;
     } catch (e) {
       errorHandler();
-      console.log("unknow error while rendering grid columns");
+      console.error("Unknown error while rendering grid columns:", e);
     }
   };
 

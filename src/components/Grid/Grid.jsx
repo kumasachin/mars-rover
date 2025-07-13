@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { GridRow } from "../../modules";
 import { robotNextStep } from "../../utils/robotMovement";
 import {delay} from "../../utils/commonUtils"
 import "./Grid.css";
 
-export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus = false, robots = [], errorHandler }) => { 
+// Constants
+const ROBOT_MOVE_DELAY = 300;
+
+export const Grid = ({ dimension, lostCell = {}, onRobotAction, executionStatus = false, robots = [], errorHandler }) => { 
   const [robotList, setRobotNewPosition] = useState(robots);
   const [lostCellScent, setLostCellScent] = useState(lostCell);
   const [iteratorForRobot, setInstructionStatus] = useState({
@@ -68,7 +71,8 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
     return lostCellScentUpdated;
   }
 
-  const moveRobot = async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const moveRobot = useCallback(async () => {
     try {
       const robot = pickRobotToMove();
       const {
@@ -91,20 +95,20 @@ export const Grid = ({ dimension, lostCell = {}, onRobotAction, excutionStatus =
           queueOfRobot: queueOfRobot,
         });
       }
-      await delay(300);
+      await delay(ROBOT_MOVE_DELAY);
       setLostCellScent(markRobotScent);
       setRobotNewPosition(robotListUpdated);
     } catch (e) {
       errorHandler();
-      console.log("unknow error while rendering grid");
+      console.error("Unknown error while rendering grid:", e);
     }
-  }
+  }, [iteratorForRobot, numberOfRobots, errorHandler]);
 
   useEffect(() => {
-    if(excutionStatus && iteratorForRobot.queueOfRobot < numberOfRobots) {
+    if(executionStatus && iteratorForRobot.queueOfRobot < numberOfRobots) {
       moveRobot();
     }
-  }, [null, robotList, excutionStatus]);
+  }, [executionStatus, iteratorForRobot.queueOfRobot, numberOfRobots, moveRobot]);
 
   return (
     <table

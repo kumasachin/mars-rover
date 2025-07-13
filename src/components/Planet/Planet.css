@@ -2,6 +2,37 @@
     box-sizing: border-box;
 }
 
+.controls {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.init {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.init:hover {
+    background-color: #218838;
+}
+
+.init:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
 .column {
     float: left;
     width: 50%;
